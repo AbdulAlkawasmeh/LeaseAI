@@ -2,12 +2,12 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import "./CreatePost.css"; // Ensure you have this CSS file
+import "./CreatePost.css"; 
 
 function CreatePost() {
   const initialValues = {
     tenantName: "",
-    tenantEmail: "",  // ✅ New Email Field
+    tenantEmail: "",  
     rentAmount: "",
     leaseStartDate: "",
     leaseEndDate: "",

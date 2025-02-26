@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Navigation Links */}
+        
         <nav className="navbar">
           <NavLink to="/createpost" className="nav-link" activeclassname="active">
             Create a Post
@@ -17,7 +17,7 @@ function App() {
           </NavLink>
         </nav>
 
-        {/* Page Routes */}
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createpost" element={<CreatePost />} />

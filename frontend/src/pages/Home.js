@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion"; 
 import "./Home.css"; 
 
 function Home() {
@@ -16,47 +17,19 @@ function Home() {
       });
   }, []);
 
-  
-  const handleDeleteAllPosts = async () => {
-    try {
-      await axios.delete("http://localhost:3001/posts/delete-all"); 
-      setListOfPosts([]); 
-      alert("All posts deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting posts:", error);
-      alert("Failed to delete posts.");
-    }
-  };
-
-  
-  const handleNotifyClick = async (post) => {
-    if (!post.tenantEmail) {
-      alert("No email available for this tenant.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://localhost:3001/send-notification", {
-        tenantEmail: post.tenantEmail,
-        tenantName: post.tenantName,
-        rentAmount: post.rentAmount,
-        leaseStartDate: post.leaseStartDate,
-        leaseEndDate: post.leaseEndDate,
-      });
-
-      alert(response.data.message); 
-    } catch (error) {
-      console.error("Error sending email:", error.response?.data || error.message);
-      alert("Failed to send notification.");
-    }
-  };
-
   return (
     <div className="App">
-      <header className="App-header">Brikli AI</header>
       
-      {/* ✅ Fixed Clear Posts Button */}
-      <button className="clearButton" onClick={handleDeleteAllPosts}>Clear Posts</button>
+      <motion.img
+        src="https://media.istockphoto.com/id/1295925635/photo/hong-kong-central-district-skyscrapers.jpg?s=612x612&w=0&k=20&c=SdWN-k-hajMSr9YEsf6_TEc0rXKc0XIjpdA7llQCjNs="
+        alt="City Skyline"
+        className="homepageImage"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+      />
+
+      <header className="App-header">Brikli AI</header>
 
       {listOfPosts.map((post) => (
         <div className="post" key={post.id}>
@@ -65,12 +38,7 @@ function Home() {
           <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
           <div className="leaseStartDate">Lease Start: {post.leaseStartDate}</div>
           <div className="leaseEndDate">Lease End: {post.leaseEndDate}</div>
-          <button
-            className="notifyButton"
-            onClick={() => handleNotifyClick(post)} 
-          >
-            Notify
-          </button>
+          <button className="notifyButton">Notify</button>
         </div>
       ))}
     </div>
