@@ -1,0 +1,94 @@
+/* Base styles for the app */
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Centered Title */
+  .App-header {
+    background-color: black;
+    color: #4caf50; /* Green color */
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #4caf50;
+  }
+  
+  /* Styling for the container of posts */
+  .App {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Styling for each post */
+  .post {
+    background-color: #2f2f2f;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .post > div {
+    margin: 8px 0;
+  }
+  
+  /* Styling for each section inside a post */
+  .tenantName,
+  .rentAmount,
+  .leaseStartDate,
+  .leaseEndDate {
+    font-size: 18px;
+  }
+  
+  .tenantName {
+    font-weight: bold;
+  }
+  
+  .rentAmount,
+  .leaseStartDate,
+  .leaseEndDate {
+    color: #ccc;
+  }
+  
+  /* Notify Button */
+  .notifyButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notifyButton:hover {
+    background-color: #45a049;
+  }
+  
+  .notifyButton:active {
+    background-color: #3c8d3b;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 600px) {
+    .post {
+      width: 95%;
+    }
+  }
+  

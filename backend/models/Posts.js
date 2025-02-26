@@ -1,33 +1,34 @@
 module.exports = (sequelize, DataTypes) => {
-    const Posts = sequelize.define("Posts", {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      tenantName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      rentAmount: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-      },
-      leaseStartDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      leaseEndDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "Active",
-      },
+    const Posts = sequelize.define('Posts', {
+        tenantName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        rentAmount: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        tenantEmail: { 
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isEmail: true, 
+            }
+        },
+        status: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Active',
+        },
+        leaseStartDate: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        leaseEndDate: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
     });
-  
+
     return Posts;
-  };
-  
+};

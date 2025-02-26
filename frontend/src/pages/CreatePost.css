@@ -1,0 +1,79 @@
+/* Styles for Create Post Page */
+.createPostPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: black;
+    min-height: 100vh;
+  }
+  
+  /* Form Container */
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    background: #2f2f2f;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Labels */
+  label {
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  /* Input Fields */
+  input {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  /* Input Focus */
+  input:focus {
+    outline: none;
+    border: 2px solid #4caf50;
+  }
+  
+  /* Error Messages */
+  span {
+    color: red;
+    font-size: 14px;
+  }
+  
+  /* Submit Button */
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:active {
+    background-color: #3c8d3b;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 500px) {
+    .formContainer {
+      width: 90%;
+    }
+  }
+  
