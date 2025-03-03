@@ -13,12 +13,25 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const postRouter = require("./routes/Posts");
 app.use("/posts", postRouter); 
 
+app.post("/posts", async (req, res) => {
+    try {
+      const newPost = await Posts.create(req.body);
+      res.status(201).json(newPost);  // Return created post
+    } catch (error) {
+      console.error("Error saving tenant info:", error);
+      res.status(500).json({ error: "Failed to save tenant data" });
+    }
+  });
+  
+
 app.post("/send-notification", async (req, res) => {
   const { tenantEmail, tenantName, rentAmount, leaseStartDate, leaseEndDate } = req.body;
 
   if (!tenantEmail) {
     return res.status(400).json({ error: "No email provided" });
   }
+
+  
 
   const msg = {
     to: tenantEmail, 
@@ -41,6 +54,8 @@ app.post("/send-notification", async (req, res) => {
     res.status(500).json({ error: "Failed to send email", details: error.response?.body || error.message });
   }
 });
+
+
 
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {

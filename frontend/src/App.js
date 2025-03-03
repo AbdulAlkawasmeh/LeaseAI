@@ -2,12 +2,12 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes, NavLink } from "react-router-dom";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePosts";
+import TenantPage from "./pages/TenantPage";  
 
 function App() {
   return (
     <Router>
       <div className="App">
-        
         <nav className="navbar">
           <NavLink to="/createpost" className="nav-link" activeclassname="active">
             Create a Post
@@ -15,12 +15,15 @@ function App() {
           <NavLink to="/" className="nav-link" activeclassname="active">
             Homepage
           </NavLink>
+          <NavLink to="/tenant" className="nav-link" activeclassname="active">
+            Tenant Page
+          </NavLink> 
         </nav>
 
-        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createpost" element={<CreatePost />} />
+          <Route path="/tenant" element={<TenantPage />} />  
         </Routes>
       </div>
     </Router>

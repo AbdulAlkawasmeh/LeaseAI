@@ -1,4 +1,3 @@
-/* Navbar Styling */
 .navbar {
   display: flex;
   justify-content: center;
@@ -7,7 +6,6 @@
   background-color: black;
 }
 
-/* Link Styling */
 .nav-link {
   color: white;
   text-decoration: none;
@@ -22,7 +20,6 @@
   text-decoration: underline;
 }
 
-/* Active Link Styling */
 .active {
   font-weight: bold;
   border-bottom: 2px solid #4caf50;
