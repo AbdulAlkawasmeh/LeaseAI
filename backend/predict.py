@@ -20,14 +20,24 @@ def predict():
         if previous_renewals is None or lease_duration is None:
             return jsonify({"error": "Missing input values"}), 400
 
-        input_data = np.array([[previous_renewals, lease_duration]])
+        renewal_rate = previous_renewals / lease_duration
+
+        input_data = np.array([[previous_renewals, lease_duration, renewal_rate]])
         input_data_scaled = scaler.transform(input_data)
 
         prediction = model.predict(input_data_scaled)[0]
         probability = model.predict_proba(input_data_scaled)[0][1]
 
+        print(f"🔍 DEBUG: Previous Renewals={previous_renewals}, Lease Duration={lease_duration}, AI Prediction={prediction}, Probability={probability}")
+
+        if previous_renewals >= 3:
+            prediction_text = "Likely to Renew"
+            probability = max(probability, 0.95) 
+        else:
+            prediction_text = "Likely to Renew" if prediction == 1 else "Unlikely to Renew"
+
         return jsonify({
-            "prediction": "Likely to Renew" if prediction == 1 else "Unlikely to Renew",
+            "prediction": prediction_text,
             "probability": round(probability, 2)
         })
 
