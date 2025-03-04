@@ -1,20 +1,11 @@
-require('dotenv').config();
-const { Sequelize } = require('sequelize');
+const mysql = require("mysql");
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME, 
-  process.env.DB_USER, 
-  process.env.DB_PASSWORD, 
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: 'mysql',
-    logging: false // Set to true to see SQL queries in logs
-  }
-);
+const db = mysql.createConnection({
+    host: "dyud5fa2qycz1o3v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    user: "dxq4wpnxelmveitm",
+    password: "q1ah0tbwmls4dcca",
+    database: "sp8wofntfetcntjc",
+    port: 3306
+});
 
-sequelize.authenticate()
-  .then(() => console.log('✅ Database connected!'))
-  .catch(err => console.error('❌ DB Connection error:', err));
-
-module.exports = sequelize;
+module.exports = db;
