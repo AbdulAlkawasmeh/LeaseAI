@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/AbdulAlkawasmeh.github.io/LeaseAI/static/css/main.7fe05bfa.css",
+    "main.js": "/AbdulAlkawasmeh.github.io/LeaseAI/static/js/main.178ed144.js",
+    "index.html": "/AbdulAlkawasmeh.github.io/LeaseAI/index.html",
+    "main.7fe05bfa.css.map": "/AbdulAlkawasmeh.github.io/LeaseAI/static/css/main.7fe05bfa.css.map",
+    "main.178ed144.js.map": "/AbdulAlkawasmeh.github.io/LeaseAI/static/js/main.178ed144.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7fe05bfa.css",
+    "static/js/main.178ed144.js"
+  ]
+}
