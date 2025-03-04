@@ -36,14 +36,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  // Virtual column to check for expiring soon status
+  
   Posts.prototype.isExpiringSoon = function () {
     const daysLeft = moment(this.leaseEndDate).diff(moment(), 'days');
-    return daysLeft <= 60;  // Returns true if lease expires in 60 days or less
+    return daysLeft <= 60;  
   };
 
   Posts.prototype.isHighChanceOfRenewal = function () {
-    return this.prediction === 'Likely to Renew';  // Based on the AI model's prediction
+    return this.prediction === 'Likely to Renew';  
   };
 
   return Posts;

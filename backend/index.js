@@ -16,7 +16,7 @@ app.use("/posts", postRouter);
 app.post("/posts", async (req, res) => {
     try {
       const newPost = await Posts.create(req.body);
-      res.status(201).json(newPost);  // Return created post
+      res.status(201).json(newPost);  
     } catch (error) {
       console.error("Error saving tenant info:", error);
       res.status(500).json({ error: "Failed to save tenant data" });

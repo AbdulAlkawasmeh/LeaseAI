@@ -43,6 +43,30 @@ function TenantPage() {
     }
   };
 
+  const handleRenewLease = async () => {
+    if (!leaseDetails) return;
+    try {
+      const response = await axios.post(`http://localhost:3001/posts/renew/${leaseDetails.id}`);
+      setLeaseDetails(response.data.lease); // Update lease details with new info
+      setMessage("Lease renewed successfully!");
+    } catch (error) {
+      console.error("Error renewing lease:", error);
+      setMessage("Failed to renew lease.");
+    }
+  };
+
+  const handleCancelLease = async () => {
+    if (!leaseDetails) return;
+    try {
+      await axios.delete(`http://localhost:3001/posts/cancel/${leaseDetails.id}`);
+      setLeaseDetails(null); // Remove from UI
+      setMessage("Lease canceled successfully!");
+    } catch (error) {
+      console.error("Error canceling lease:", error);
+      setMessage("Failed to cancel lease.");
+    }
+  };
+
   return (
     <div className="tenant-container">
       <h1>Tenant Lease Management</h1>
@@ -69,12 +93,14 @@ function TenantPage() {
           <p><strong>Name:</strong> {leaseDetails.tenantName}</p>
           <p><strong>Email:</strong> {leaseDetails.tenantEmail}</p>
           <p><strong>Lease End Date:</strong> {formatDate(leaseDetails.leaseEndDate)}</p>
-          <button className="btn btn-green">Renew Lease</button>
-          <button className="btn btn-red">Cancel Lease</button>
+          <p><strong>Renewal Status:</strong> {leaseDetails.prediction || "Unknown"}</p>
+
+          <button className="btn btn-green" onClick={handleRenewLease}>Renew Lease</button>
+          <button className="btn btn-red" onClick={handleCancelLease}>Cancel Lease</button>
         </div>
       )}
 
-      {message && <p className="error-message">{message}</p>}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 }

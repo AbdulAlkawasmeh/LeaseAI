@@ -1,24 +1,34 @@
-import sys
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 
-data = pd.DataFrame({
-    'previous_renewals': [5, 2, 8, 1, 4, 7],
-    'lease_duration': [12, 6, 24, 3, 9, 18],
-    'renewed': [1, 0, 1, 0, 0, 1]  
-})
+data = {
+    "previous_renewals": [1, 2, 0, 3, 1, 2, 4, 0, 3, 1],
+    "lease_duration": [12, 24, 6, 36, 12, 24, 48, 6, 36, 12],
+    "renewed": [1, 1, 0, 1, 1, 1, 1, 0, 1, 1]  
+}
 
-X = data[['previous_renewals', 'lease_duration']]
-y = data['renewed']
+df = pd.DataFrame(data)
 
-model = RandomForestClassifier(n_estimators=10, random_state=42)
-model.fit(X, y)
+X = df[["previous_renewals", "lease_duration"]]
+y = df["renewed"]
 
-previous_renewals = int(sys.argv[1])
-lease_duration = int(sys.argv[2])
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-prediction = model.predict([[previous_renewals, lease_duration]])
+model = LogisticRegression()
+model.fit(X_train_scaled, y_train)
 
-print("High chance of renewal" if prediction[0] == 1 else "Low chance of renewal")
+with open("lease_model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+with open("scaler.pkl", "wb") as f:
+    pickle.dump(scaler, f)
+
+print("Model trained and saved successfully!")

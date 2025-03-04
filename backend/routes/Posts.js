@@ -1,7 +1,9 @@
 const express = require("express");
-const { spawn } = require("child_process"); 
+const { spawn } = require("child_process");
 const router = express.Router();
 const { Posts } = require("../models");
+const sgMail = require("@sendgrid/mail");
+
 
 router.get("/", async (req, res) => {
   try {
@@ -12,6 +14,45 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.post("/renew/:id", async (req, res) => {
+  try {
+    const lease = await Posts.findByPk(req.params.id);
+    if (!lease) {
+      return res.status(404).json({ message: "Lease not found" });
+    }
+
+    // Update lease with a new end date (extend lease by X months)
+    const newLeaseEndDate = new Date(lease.leaseEndDate);
+    newLeaseEndDate.setMonth(newLeaseEndDate.getMonth() + 12); // Extending by 12 months
+
+    lease.leaseEndDate = newLeaseEndDate;
+    lease.previous_renewals = (lease.previous_renewals || 0) + 1; // Increment renewals
+    lease.prediction = lease.previous_renewals >= 3 ? "Likely to Renew" : "Unlikely to Renew"; // AI prediction logic
+
+    await lease.save();
+    res.json({ message: "Lease renewed successfully", lease });
+  } catch (error) {
+    console.error("Error renewing lease:", error);
+    res.status(500).json({ error: "Failed to renew lease" });
+  }
+});
+
+router.delete("/cancel/:id", async (req, res) => {
+  try {
+    const lease = await Posts.findByPk(req.params.id);
+    if (!lease) {
+      return res.status(404).json({ message: "Lease not found" });
+    }
+
+    await lease.destroy();
+    res.json({ message: "Lease canceled successfully" });
+  } catch (error) {
+    console.error("Error canceling lease:", error);
+    res.status(500).json({ error: "Failed to cancel lease" });
+  }
+});
+
 
 router.post("/predict", (req, res) => {
   const { previous_renewals, lease_duration } = req.body;
@@ -28,6 +69,34 @@ router.post("/predict", (req, res) => {
     res.status(500).json({ error: "AI prediction failed" });
   });
 });
+
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// Email Sending Endpoint
+router.post("/send-notification", async (req, res) => {
+  const { tenantEmail, tenantName, rentAmount, leaseStartDate, leaseEndDate } = req.body;
+
+  if (!tenantEmail) {
+    return res.status(400).json({ error: "No email provided" });
+  }
+
+  const msg = {
+    to: tenantEmail, // Tenant's email address
+    from: process.env.FROM_EMAIL, // Your verified sender email
+    subject: "Rent Notification",
+    text: `Dear ${tenantName},\n\nThis is a reminder that your rent of $${rentAmount} is due.\nLease Period: ${leaseStartDate} - ${leaseEndDate}.\n\nThank you.`,
+  };
+
+  try {
+    await sgMail.send(msg);
+    res.status(200).json({ message: "Notification email sent successfully!" });
+  } catch (error) {
+    console.error("Error sending email:", error.response?.body || error.message);
+    res.status(500).json({ error: "Failed to send email" });
+  }
+});
+
 
 router.get("/search", async (req, res) => {
   try {

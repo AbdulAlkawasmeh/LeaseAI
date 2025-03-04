@@ -12,6 +12,7 @@ function Home() {
     axios
       .get("http://localhost:3001/posts") 
       .then((response) => {
+        console.log("Fetched Posts:", response.data); // Debugging log
         setListOfPosts(response.data);
       })
       .catch((error) => {
@@ -45,7 +46,6 @@ function Home() {
   return (
     <div className="App">
       <header className="App-header">Brikli AI</header>
-      <Link to="/tenant" className="nav-link">Go to Tenant Page</Link> 
 
       <motion.img
         src="https://media.istockphoto.com/id/1295925635/photo/hong-kong-central-district-skyscrapers.jpg?s=612x612&w=0&k=20&c=SdWN-k-hajMSr9YEsf6_TEc0rXKc0XIjpdA7llQCjNs="
@@ -56,27 +56,38 @@ function Home() {
         transition={{ duration: 2 }}
       />
 
-      {listOfPosts.map((post) => (
-        <div className="post" key={post.id}>
-          <div className="tenantName">Tenant: {post.tenantName}</div>
-          <div className="tenantEmail">Email: {post.tenantEmail}</div>
-          <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
-          <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
-          <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
-          
-          {post.prediction === "Likely to Renew" && (
-            <div className="predictionTag" style={{ backgroundColor: "yellow" }}>High chance of renewal</div>
-          )}
-          
-          {isExpiringSoon(post.leaseEndDate) && (
-            <div className="expiringTag" style={{ backgroundColor: "red" }}>Expiring soon</div>
-          )}
+      {listOfPosts.length === 0 ? (
+        <p>No lease data available.</p>
+      ) : (
+        listOfPosts.map((post) => (
+          <div className="post" key={post.id}>
+            <div className="tenantName">Tenant: {post.tenantName}</div>
+            <div className="tenantEmail">Email: {post.tenantEmail}</div>
+            <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
+            <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
+            <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
 
-          <button className="notifyButton" onClick={() => sendNotification(post)}>
-            Notify
-          </button>
-        </div>
-      ))}
+            {/* Display AI prediction */}
+            {post.prediction ? (
+              <div className="predictionTag" style={{ backgroundColor: post.prediction === "Likely to Renew" ? "yellow" : "gray" }}>
+                {post.prediction}
+              </div>
+            ) : (
+              <div className="predictionTag" style={{ backgroundColor: "lightgray" }}>
+                No Prediction
+              </div>
+            )}
+
+            {isExpiringSoon(post.leaseEndDate) && (
+              <div className="expiringTag" style={{ backgroundColor: "red" }}>Expiring soon</div>
+            )}
+
+            <button className="notifyButton" onClick={() => sendNotification(post)}>
+              Notify
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 }
