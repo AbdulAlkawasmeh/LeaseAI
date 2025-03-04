@@ -4,6 +4,7 @@ const app = express();
 const db = require("./models");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
+require('./config/database'); // Load the database connection
 
 app.use(express.json());
 app.use(cors());
