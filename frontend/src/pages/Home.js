@@ -10,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/posts") 
+      .get(" https://leasedb-581c988d7b28.herokuapp.com/posts") 
       .then((response) => {
         console.log("Fetched Posts:", response.data); // Debugging log
         setListOfPosts(response.data);
@@ -27,7 +27,7 @@ function Home() {
 
   const sendNotification = async (post) => {
     try {
-      const response = await axios.post("http://localhost:3001/send-notification", {
+      const response = await axios.post("https://leasedb-581c988d7b28.herokuapp.com/send-notification", {
         tenantEmail: post.tenantEmail,
         tenantName: post.tenantName,
         rentAmount: post.rentAmount,
