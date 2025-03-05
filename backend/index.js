@@ -7,10 +7,9 @@ require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 require('./config/database'); // Load the database connection
 
-app.use(cors());
 // Set up CORS to allow requests from your frontend URL
 app.use(cors({
-  origin: 'https://your-frontend-domain.com', // Replace with your frontend URL
+  origin: 'https://leaseai.netlify.app', // Replace with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
