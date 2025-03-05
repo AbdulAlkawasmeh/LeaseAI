@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-app.use(cors());
-const app = express();
+const app = express();  // Define app after importing express
 const db = require("./models");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
