@@ -3,7 +3,6 @@ import axios from "axios";
 import { motion } from "framer-motion"; 
 import moment from "moment";
 import "./Home.css"; 
-import { Link } from "react-router-dom"; 
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
