@@ -25,7 +25,7 @@ function TenantPage() {
     email = email.trim().toLowerCase();
 
     try {
-      const response = await axios.get("https://leasedb-581c988d7b28.herokuapp.com/posts/search", {
+      const response = await axios.get("http://localhost:3001/posts/search", {
         params: { tenantName: name, tenantEmail: email },
       });
 
@@ -46,7 +46,7 @@ function TenantPage() {
   const handleRenewLease = async () => {
     if (!leaseDetails) return;
     try {
-      const response = await axios.post(`https://leasedb-581c988d7b28.herokuapp.com/posts/renew/${leaseDetails.id}`);
+      const response = await axios.post(`http://localhost:3001/posts/renew/${leaseDetails.id}`);
       setLeaseDetails(response.data.lease); // Update lease details with new info
       setMessage("Lease renewed successfully!");
     } catch (error) {
@@ -58,7 +58,7 @@ function TenantPage() {
   const handleCancelLease = async () => {
     if (!leaseDetails) return;
     try {
-      await axios.delete(`https://leasedb-581c988d7b28.herokuapp.com/posts/cancel/${leaseDetails.id}`);
+      await axios.delete(`http://localhost:3001/posts/cancel/${leaseDetails.id}`);
       setLeaseDetails(null); // Remove from UI
       setMessage("Lease canceled successfully!");
     } catch (error) {

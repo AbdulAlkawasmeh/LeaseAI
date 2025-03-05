@@ -17,7 +17,7 @@ function CreatePost() {
     tenantName: Yup.string().required("Tenant Name is required!"),
     tenantEmail: Yup.string()
       .email("Invalid email format")
-      .required("Tenant Email is required!"), // ✅ Email Validation
+      .required("Tenant Email is required!"), 
     rentAmount: Yup.number()
       .positive("Rent amount must be positive")
       .required("Rent Amount is required!"),
