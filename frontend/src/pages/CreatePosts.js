@@ -26,7 +26,7 @@ function CreatePost() {
   });
 
   const onSubmit = (data, { resetForm }) => {
-    axios.post("http://localhost:3001/posts", data).then((response) => {
+    axios.post("https://leasedb-581c988d7b28.herokuapp.com/posts", data).then((response) => {
       console.log("Data submitted:", response.data);
       alert("Tenant information submitted!");
       resetForm();

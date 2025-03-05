@@ -9,7 +9,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get(" https://leasedb-581c988d7b28.herokuapp.com/posts") 
+      .get("https://leasedb-581c988d7b28.herokuapp.com/posts") 
       .then((response) => {
         console.log("Fetched Posts:", response.data); // Debugging log
         setListOfPosts(response.data);
