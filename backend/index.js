@@ -1,38 +1,33 @@
 const express = require("express");
 const cors = require("cors");
+app.use(cors());
 const app = express();
 const db = require("./models");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 require('./config/database'); // Load the database connection
 
-app.use(express.json());
 app.use(cors());
+// Set up CORS to allow requests from your frontend URL
+app.use(cors({
+  origin: 'https://your-frontend-domain.com', // Replace with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
+app.use(express.json());
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+// Import and use the postRouter for handling post requests
 const postRouter = require("./routes/Posts");
-app.use("/posts", postRouter); 
+app.use("/posts", postRouter); // Use the postRouter for /posts route
 
-app.post("/posts", async (req, res) => {
-    try {
-      const newPost = await Posts.create(req.body);
-      res.status(201).json(newPost);  
-    } catch (error) {
-      console.error("Error saving tenant info:", error);
-      res.status(500).json({ error: "Failed to save tenant data" });
-    }
-  });
-  
-
+// Notification route (keep this if you need it)
 app.post("/send-notification", async (req, res) => {
   const { tenantEmail, tenantName, rentAmount, leaseStartDate, leaseEndDate } = req.body;
 
   if (!tenantEmail) {
     return res.status(400).json({ error: "No email provided" });
   }
-
-  
 
   const msg = {
     to: tenantEmail, 
@@ -56,10 +51,10 @@ app.post("/send-notification", async (req, res) => {
   }
 });
 
-
-
-db.sequelize.sync().then(() => {
-  app.listen(3001, () => {
-    console.log("Server running on port 3001");
+// Sync database and start server
+const port = process.env.PORT || 3001;  // Use Heroku's port or default to 3001
+db.sequelize.sync({ force: false }).then(() => {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
   });
 });
