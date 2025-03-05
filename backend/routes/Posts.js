@@ -3,6 +3,7 @@ const { spawn } = require("child_process");
 const router = express.Router();
 const { Posts } = require("../models");
 const sgMail = require("@sendgrid/mail");
+const cors = require('cors');
 
 
 router.get("/", async (req, res) => {

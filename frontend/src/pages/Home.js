@@ -9,9 +9,9 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://leasedb-581c988d7b28.herokuapp.com/posts") 
+      .get("http://localhost:3001/posts") 
       .then((response) => {
-        console.log("Fetched Posts:", response.data); // Debugging log
+        console.log("Fetched Posts:", response.data); 
         setListOfPosts(response.data);
       })
       .catch((error) => {
@@ -26,13 +26,14 @@ function Home() {
 
   const sendNotification = async (post) => {
     try {
-      const response = await axios.post("https://leasedb-581c988d7b28.herokuapp.com/send-notification", {
+      const response = await axios.post("http://localhost:3001/send-notification", {
         tenantEmail: post.tenantEmail,
         tenantName: post.tenantName,
         rentAmount: post.rentAmount,
         leaseStartDate: post.leaseStartDate,
         leaseEndDate: post.leaseEndDate,
       });
+
 
       alert("Notification sent successfully!");
       console.log(response.data);
@@ -66,7 +67,7 @@ function Home() {
             <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
             <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
 
-            {/* Display AI prediction */}
+           
             {post.prediction ? (
               <div className="predictionTag" style={{ backgroundColor: post.prediction === "Likely to Renew" ? "yellow" : "gray" }}>
                 {post.prediction}
