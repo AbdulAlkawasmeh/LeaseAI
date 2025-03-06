@@ -23,13 +23,12 @@ router.post("/renew/:id", async (req, res) => {
       return res.status(404).json({ message: "Lease not found" });
     }
 
-    // Update lease with a new end date (extend lease by X months)
     const newLeaseEndDate = new Date(lease.leaseEndDate);
-    newLeaseEndDate.setMonth(newLeaseEndDate.getMonth() + 12); // Extending by 12 months
+    newLeaseEndDate.setMonth(newLeaseEndDate.getMonth() + 12); 
 
     lease.leaseEndDate = newLeaseEndDate;
-    lease.previous_renewals = (lease.previous_renewals || 0) + 1; // Increment renewals
-    lease.prediction = lease.previous_renewals >= 3 ? "Likely to Renew" : "Unlikely to Renew"; // AI prediction logic
+    lease.previous_renewals = (lease.previous_renewals || 0) + 1; 
+    lease.prediction = lease.previous_renewals >= 3 ? "Likely to Renew" : "Unlikely to Renew"; 
 
     await lease.save();
     res.json({ message: "Lease renewed successfully", lease });
@@ -74,7 +73,6 @@ router.post("/predict", (req, res) => {
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Email Sending Endpoint
 router.post("/send-notification", async (req, res) => {
   const { tenantEmail, tenantName, rentAmount, leaseStartDate, leaseEndDate } = req.body;
 
@@ -83,8 +81,8 @@ router.post("/send-notification", async (req, res) => {
   }
 
   const msg = {
-    to: tenantEmail, // Tenant's email address
-    from: process.env.FROM_EMAIL, // Your verified sender email
+    to: tenantEmail, 
+    from: process.env.FROM_EMAIL, 
     subject: "Rent Notification",
     text: `Dear ${tenantName},\n\nThis is a reminder that your rent of $${rentAmount} is due.\nLease Period: ${leaseStartDate} - ${leaseEndDate}.\n\nThank you.`,
   };

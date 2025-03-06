@@ -1,11 +1,20 @@
-const mysql = require("mysql");
+require("dotenv").config();
+const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-    host: "dyud5fa2qycz1o3v.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    user: "dxq4wpnxelmveitm",
-    password: "q1ah0tbwmls4dcca",
-    database: "sp8wofntfetcntjc",
-    port: 3306
+  host: process.env.MYSQLHOST || "mysql.railway.internal",
+  port: process.env.MYSQLPORT || 3306,
+  user: process.env.MYSQLUSER || "root",
+  password: process.env.MYSQLPASSWORD || "xyVSkCWrkuGPQSTpLneMdJzbfmKGekDI",
+  database: process.env.MYSQLDATABASE || "railway",
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error("Database connection failed:", err);
+    return;
+  }
+  console.log("Connected to Railway MySQL!");
 });
 
 module.exports = db;

@@ -9,7 +9,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/posts") 
+      .get("/posts") 
       .then((response) => {
         console.log("Fetched Posts:", response.data); 
         setListOfPosts(response.data);
@@ -26,7 +26,7 @@ function Home() {
 
   const sendNotification = async (post) => {
     try {
-      const response = await axios.post("http://localhost:3001/send-notification", {
+      const response = await axios.post("/send-notification", {
         tenantEmail: post.tenantEmail,
         tenantName: post.tenantName,
         rentAmount: post.rentAmount,
