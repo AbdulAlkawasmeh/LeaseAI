@@ -26,7 +26,7 @@ function CreatePost() {
   });
 
   const onSubmit = (data, { resetForm }) => {
-    axios.post("http://localhost:3001/posts", data).then((response) => {
+    axios.post("/posts", data).then((response) => {
       console.log("Data submitted:", response.data);
       alert("Tenant information submitted!");
       resetForm();
@@ -49,7 +49,7 @@ function CreatePost() {
             placeholder="Enter Tenant Name"
           />
 
-          <label>Tenant Email:</label>  {/* ✅ New Email Field */}
+          <label>Tenant Email:</label>  
           <ErrorMessage name="tenantEmail" component="span" />
           <Field
             autoComplete="off"
