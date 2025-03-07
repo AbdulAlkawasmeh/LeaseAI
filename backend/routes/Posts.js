@@ -129,7 +129,7 @@ router.get("/search", async (req, res) => {
   }
 });
 
-router.post("/createpost", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const post = req.body;
     await Posts.create(post);
