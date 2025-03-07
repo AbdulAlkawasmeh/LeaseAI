@@ -26,7 +26,7 @@ function CreatePost() {
   });
 
   const onSubmit = (data, { resetForm }) => {
-    axios.post("https://leaseai-production.up.railway.app/createposts", data).then((response) => {
+    axios.post("https://leaseai-production.up.railway.app/createpost", data).then((response) => {
       console.log("Data submitted:", response.data);
       alert("Tenant information submitted!");
       resetForm();
