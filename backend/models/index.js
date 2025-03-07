@@ -6,13 +6,25 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+
+// Use the environment variable for the database configuration
+let config = require(__dirname + '/../config/config.json')[env];
+
+// Check if the environment variable DATABASE_URL is set for the configuration
+if (config.use_env_variable) {
+  // Use the environment variable for the database URL (e.g., DATABASE_URL)
+  config.database = process.env[config.use_env_variable];
+}
+
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+
+if (config.database) {
+  // Sequelize configuration using environment variable (for DATABASE_URL)
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 } else {
+  // Fallback to default configuration
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
