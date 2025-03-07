@@ -5,8 +5,7 @@ const { Posts } = require("../models");
 const sgMail = require("@sendgrid/mail");
 const cors = require('cors');
 
-// Ensure you require the postsRouter correctly
-const postsRouter = require('./routes/Posts');
+//const postsRouter = require('./routes/Posts');
 
 // Initialize express app
 const app = express();
@@ -16,7 +15,7 @@ app.use(cors());
 app.use(express.json()); // To parse JSON bodies
 
 // Use the postsRouter for routes starting with '/posts'
-app.use('/posts', postsRouter);
+//app.use('/posts', postsRouter);
 
 router.get("/", async (req, res) => {
   try {
