@@ -6,25 +6,31 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
+const configPath = __dirname + '/../config/config.json';
+let config = {};
 
-// Use the environment variable for the database configuration
-let config = require(__dirname + '/../config/config.json')[env];
-
-// Check if the environment variable DATABASE_URL is set for the configuration
-if (config.use_env_variable) {
-  // Use the environment variable for the database URL (e.g., DATABASE_URL)
-  config.database = process.env[config.use_env_variable];
+try {
+  // Try to load the config file
+  config = require(configPath)[env];
+} catch (error) {
+  console.error('Error loading configuration:', error);
+  process.exit(1);  // Exit the process if the config cannot be loaded
 }
 
 const db = {};
 
 let sequelize;
-
-if (config.database) {
-  // Sequelize configuration using environment variable (for DATABASE_URL)
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+if (config.use_env_variable) {
+  // Use the environment variable for production
+  const dbUrl = process.env[config.use_env_variable];
+  if (dbUrl) {
+    sequelize = new Sequelize(dbUrl, config);
+  } else {
+    console.error(`Environment variable ${config.use_env_variable} is not defined.`);
+    process.exit(1);
+  }
 } else {
-  // Fallback to default configuration
+  // Fallback to local configuration
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
