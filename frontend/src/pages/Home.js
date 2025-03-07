@@ -9,7 +9,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://leaseai-production.up.railway.app/posts") 
+      .get("https://leaseai-backend-production.up.railway.app/posts") 
       .then((response) => {
         console.log("Fetched Posts:", response.data); 
         setListOfPosts(response.data);
