@@ -6,7 +6,7 @@ const sgMail = require("@sendgrid/mail");
 const cors = require('cors');
 
 // Ensure you require the postsRouter correctly
-const postsRouter = require('./routes/posts');
+const postsRouter = require('./routes/Posts');
 
 // Initialize express app
 const app = express();
