@@ -4,8 +4,13 @@ const router = express.Router();
 const { Posts } = require("../models");
 const sgMail = require("@sendgrid/mail");
 const cors = require('cors');
+app.use('/posts', postsRouter);
+const postsRouter = require('./routes/posts'); 
 
 
+app.use(cors());
+
+app.use('/posts')
 router.get("/", async (req, res) => {
   try {
     const ListOfPosts = await Posts.findAll();
