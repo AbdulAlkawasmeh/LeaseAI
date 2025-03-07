@@ -121,7 +121,7 @@ router.get("/search", async (req, res) => {
   }
 });
 
-router.post("/posts", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const post = req.body;
     await Posts.create(post);
@@ -131,7 +131,6 @@ router.post("/posts", async (req, res) => {
     res.status(500).json({ message: "Failed to create lease post" });
   }
 });
-
 
 router.delete("/delete-all", async (req, res) => {
   try {
