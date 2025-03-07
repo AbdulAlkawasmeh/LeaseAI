@@ -13,7 +13,12 @@
     "host": "127.0.0.1",
     "dialect": "mysql"
   
-}
+},
+"production": {
+    "use_env_variable": "mysql://root:kBZiRuwfdXcmNZAnGvMfRscxvaGNTSyc@ballast.proxy.rlwy.net:27211/railway",
+    "dialect": "mysql"
 
+
+}
 }
 
