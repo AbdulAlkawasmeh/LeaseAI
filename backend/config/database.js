@@ -5,7 +5,7 @@ const db = mysql.createConnection({
   host: process.env.MYSQLHOST || "mysql.railway.internal",
   port: process.env.MYSQLPORT || 3306,
   user: process.env.MYSQLUSER || "root",
-  password: process.env.MYSQLPASSWORD || "xyVSkCWrkuGPQSTpLneMdJzbfmKGekDI",
+  password: process.env.MYSQLPASSWORD || "kBZiRuwfdXcmNZAnGvMfRscxvaGNTSyc",
   database: process.env.MYSQLDATABASE || "railway",
 });
 

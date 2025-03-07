@@ -12,13 +12,7 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
-  "production": {
-  "username": "o6z1vvovxlz7ecn6",
-  "password": "ztm3hm4cutzsqymm",
-  "database": "lzqqln5zw1e17ne1",
-  "host": "h40lg7qyub2umdvb.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  "dialect": "mysql"
+  
 }
 
 }

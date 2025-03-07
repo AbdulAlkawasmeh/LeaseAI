@@ -4,13 +4,20 @@ const router = express.Router();
 const { Posts } = require("../models");
 const sgMail = require("@sendgrid/mail");
 const cors = require('cors');
-app.use('/posts', postsRouter);
-const postsRouter = require('./routes/posts'); 
 
+// Ensure you require the postsRouter correctly
+const postsRouter = require('./routes/posts');
 
+// Initialize express app
+const app = express();
+
+// Middleware
 app.use(cors());
+app.use(express.json()); // To parse JSON bodies
 
-app.use('/posts')
+// Use the postsRouter for routes starting with '/posts'
+app.use('/posts', postsRouter);
+
 router.get("/", async (req, res) => {
   try {
     const ListOfPosts = await Posts.findAll();
@@ -58,7 +65,6 @@ router.delete("/cancel/:id", async (req, res) => {
   }
 });
 
-
 router.post("/predict", (req, res) => {
   const { previous_renewals, lease_duration } = req.body;
 
@@ -74,7 +80,6 @@ router.post("/predict", (req, res) => {
     res.status(500).json({ error: "AI prediction failed" });
   });
 });
-
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -100,7 +105,6 @@ router.post("/send-notification", async (req, res) => {
     res.status(500).json({ error: "Failed to send email" });
   }
 });
-
 
 router.get("/search", async (req, res) => {
   try {

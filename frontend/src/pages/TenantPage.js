@@ -25,7 +25,7 @@ function TenantPage() {
     email = email.trim().toLowerCase();
 
     try {
-      const response = await axios.get("/posts/search", {
+      const response = await axios.get("https://leaseai-production.up.railway.app/posts/search", {
         params: { tenantName: name, tenantEmail: email },
       });
 
@@ -46,7 +46,7 @@ function TenantPage() {
   const handleRenewLease = async () => {
     if (!leaseDetails) return;
     try {
-      const response = await axios.post(`/posts/renew/${leaseDetails.id}`);
+      const response = await axios.post(`https://leaseai-production.up.railway.app/posts/renew/${leaseDetails.id}`);
       setLeaseDetails(response.data.lease); 
       setMessage("Lease renewed successfully!");
     } catch (error) {
