@@ -25,7 +25,7 @@ function TenantPage() {
     email = email.trim().toLowerCase();
 
     try {
-      const response = await axios.get("https://leaseai-production.up.railway.app/posts/search", {
+      const response = await axios.get("https://leaseai-backend-production.up.railway.app/posts/search", {
         params: { tenantName: name, tenantEmail: email },
       });
 
