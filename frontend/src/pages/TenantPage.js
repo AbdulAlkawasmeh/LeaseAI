@@ -55,10 +55,11 @@ function TenantPage() {
     }
   };
 
+
   const handleCancelLease = async () => {
     if (!leaseDetails) return;
     try {
-      await axios.delete(`/posts/cancel/${leaseDetails.id}`);
+      await axios.delete(`https://leaseai-backend-production.up.railway.app/posts/cancel/${leaseDetails.id}`);
       setLeaseDetails(null); 
       setMessage("Lease canceled successfully!");
     } catch (error) {
