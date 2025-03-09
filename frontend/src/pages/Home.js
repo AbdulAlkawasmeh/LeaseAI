@@ -26,7 +26,7 @@ function Home() {
 
   const sendNotification = async (post) => {
     try {
-      const response = await axios.post("https://leaseai-production.up.railway.app/send-notification", {
+      const response = await axios.post("https://leaseai-backend-production.up.railway.app/send-notification", {
         tenantEmail: post.tenantEmail,
         tenantName: post.tenantName,
         rentAmount: post.rentAmount,

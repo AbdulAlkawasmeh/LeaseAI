@@ -46,7 +46,7 @@ function TenantPage() {
   const handleRenewLease = async () => {
     if (!leaseDetails) return;
     try {
-      const response = await axios.post(`https://leaseai-production.up.railway.app/posts/renew/${leaseDetails.id}`);
+      const response = await axios.post(`https://leaseai-backend-production.up.railway.app/posts/renew/${leaseDetails.id}`);
       setLeaseDetails(response.data.lease); 
       setMessage("Lease renewed successfully!");
     } catch (error) {
