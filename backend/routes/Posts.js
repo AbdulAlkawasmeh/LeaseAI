@@ -80,7 +80,7 @@ router.post("/predict", (req, res) => {
   });
 });
 
-sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.post("/send-notification", async (req, res) => {
   const { tenantEmail, tenantName, rentAmount, leaseStartDate, leaseEndDate } = req.body;
