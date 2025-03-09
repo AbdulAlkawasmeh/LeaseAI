@@ -91,10 +91,11 @@ router.post("/send-notification", async (req, res) => {
 
   const msg = {
     to: tenantEmail, 
-    from: process.env.FROM_EMAIL, 
+    from: { email: process.env.FROM_EMAIL, name: 'BrikliAI' }, 
     subject: "Rent Notification",
     text: `Dear ${tenantName},\n\nThis is a reminder that your rent of $${rentAmount} is due.\nLease Period: ${leaseStartDate} - ${leaseEndDate}.\n\nThank you.`,
   };
+  
 
   try {
     await sgMail.send(msg);
