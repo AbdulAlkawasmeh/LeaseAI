@@ -1,57 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
-  const [listOfPosts, setListOfPosts] = useState([]);
-  const [activeAccordion, setActiveAccordion] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("https://leaseai-backend-production.up.railway.app/posts")
-      .then((response) => {
-        console.log("Fetched Posts:", response.data);
-        setListOfPosts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching posts:", error);
-      });
-  }, []);
-
-  const isExpiringSoon = (leaseEndDate) => {
-    const daysLeft = moment(leaseEndDate).diff(moment(), "days");
-    return daysLeft <= 60;
-  };
-
-  const sendNotification = async (post) => {
-    try {
-      const response = await axios.post(
-        "https://leaseai-backend-production.up.railway.app/send-notification",
-        {
-          tenantEmail: post.tenantEmail,
-          tenantName: post.tenantName,
-          rentAmount: post.rentAmount,
-          leaseStartDate: post.leaseStartDate,
-          leaseEndDate: post.leaseEndDate,
-        }
-      );
-
-      alert("Notification sent successfully!");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error sending notification:", error);
-      alert("Failed to send notification.");
-    }
-  };
+  const navigate = useNavigate();
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
-    setActiveAccordion(activeAccordion === index ? null : index);
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="App">
+    <div className="home-container">
       {/* Hero Section */}
       <header className="hero-section">
         <motion.img
@@ -65,118 +26,50 @@ function Home() {
         <div className="hero-text">
           <h1>Lease AI - Revolutionizing Lease Management</h1>
           <p>Automate and optimize your lease management with our AI-powered platform.</p>
-          <button className="cta-button">Get Started</button>
+          <button className="cta-button" onClick={() => navigate("/create-posts")}>Get Started</button>
         </div>
       </header>
 
-      {/* Posts Section */}
-      <section className="posts-section">
-        <h2>Lease Data</h2>
-        {listOfPosts.length === 0 ? (
-          <p>No lease data available.</p>
-        ) : (
-          listOfPosts.map((post) => (
-            <div className="post" key={post.id}>
-              <div className="tenantName">Tenant: {post.tenantName}</div>
-              <div className="tenantEmail">Email: {post.tenantEmail}</div>
-              <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
-              <div className="leaseStartDate">
-                Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}
-              </div>
-              <div className="leaseEndDate">
-                Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}
-              </div>
+      {/* About Us Section */}
+      <section className="about-us">
+        <h2>About Us</h2>
+        <p>
+          Lease AI is an innovative platform designed to simplify lease management. 
+          We use AI to track lease expirations, predict renewal probabilities, and automate 
+          tenant communication, helping landlords manage their properties effortlessly.
+        </p>
+      </section>
 
-              {post.prediction ? (
-                <div
-                  className="predictionTag"
-                  style={{
-                    backgroundColor:
-                      post.prediction === "Likely to Renew" ? "yellow" : "gray",
-                  }}
-                >
-                  {post.prediction}
-                </div>
-              ) : (
-                <div className="predictionTag" style={{ backgroundColor: "lightgray" }}>
-                  No Prediction
-                </div>
-              )}
-
-              {isExpiringSoon(post.leaseEndDate) && (
-                <div className="expiringTag" style={{ backgroundColor: "red" }}>
-                  Expiring soon
-                </div>
-              )}
-
-              <button className="notifyButton" onClick={() => sendNotification(post)}>
-                Notify
-              </button>
-            </div>
-          ))
-        )}
+      {/* How It Works Section */}
+      <section className="how-it-works">
+        <h2>How It Works</h2>
+        <ul>
+          <li><strong>Landlord Inputs Data:</strong> Add tenant details, lease terms, and rent amounts.</li>
+          <li><strong>Data Stored Securely:</strong> All lease data is stored in a secure database.</li>
+          <li><strong>Status Tracking:</strong> Active leases are tracked in real-time.</li>
+          <li><strong>Expiring Lease Alerts:</strong> The system marks leases nearing expiration.</li>
+          <li><strong>Email Notifications:</strong> Landlords can send automated reminders to tenants.</li>
+        </ul>
       </section>
 
       {/* FAQ Section */}
       <section className="faq-section">
         <h2>Frequently Asked Questions</h2>
         <div className="accordion">
-          <div className="accordion-item">
-            <button
-              className="accordion-button"
-              onClick={() => toggleAccordion(1)}
-            >
-              What is AI Leasing?
-            </button>
-            <div
-              className={`accordion-content ${
-                activeAccordion === 1 ? "open" : ""
-              }`}
-            >
-              <p>
-                AI Leasing is the use of artificial intelligence to automate and
-                optimize lease management and decisions.
-              </p>
+          {[
+            { question: "What is AI Leasing?", answer: "AI Leasing automates lease tracking, reminders, and predictions using artificial intelligence." },
+            { question: "How can I use this platform?", answer: "You can add tenant details, track lease statuses, and send automated notifications to tenants." },
+            { question: "Is this platform secure?", answer: "Yes, we use encryption and strict access controls to protect user data." },
+          ].map((item, index) => (
+            <div key={index} className="accordion-item">
+              <button className="accordion-button" onClick={() => toggleAccordion(index)}>
+                {item.question}
+              </button>
+              <div className={`accordion-content ${openIndex === index ? "open" : ""}`}>
+                <p>{item.answer}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="accordion-item">
-            <button
-              className="accordion-button"
-              onClick={() => toggleAccordion(2)}
-            >
-              How can I use this platform?
-            </button>
-            <div
-              className={`accordion-content ${
-                activeAccordion === 2 ? "open" : ""
-              }`}
-            >
-              <p>
-                You can manage lease data, get renewal predictions, and send
-                notifications to tenants through our platform.
-              </p>
-            </div>
-          </div>
-
-          <div className="accordion-item">
-            <button
-              className="accordion-button"
-              onClick={() => toggleAccordion(3)}
-            >
-              Is this platform secure?
-            </button>
-            <div
-              className={`accordion-content ${
-                activeAccordion === 3 ? "open" : ""
-              }`}
-            >
-              <p>
-                Yes, we ensure that all data is stored securely with encryption
-                and only authorized users have access.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -184,39 +77,16 @@ function Home() {
       <section className="partners-section">
         <h2>Our Partners</h2>
         <div className="partners-slider">
-          <motion.div
-            className="partner"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <img
-              src="https://via.placeholder.com/150x100?text=Partner+1"
-              alt="Partner 1"
-            />
-          </motion.div>
-          <motion.div
-            className="partner"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
-          >
-            <img
-              src="https://via.placeholder.com/150x100?text=Partner+2"
-              alt="Partner 2"
-            />
-          </motion.div>
-          <motion.div
-            className="partner"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2 }}
-          >
-            <img
-              src="https://via.placeholder.com/150x100?text=Partner+3"
-              alt="Partner 3"
-            />
-          </motion.div>
+          {[
+            { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+            { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+            { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
+            { name: "Tesla", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" },
+          ].map((partner, index) => (
+            <motion.div key={index} className="partner" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 + index * 0.5 }}>
+              <img src={partner.logo} alt={partner.name} />
+            </motion.div>
+          ))}
         </div>
       </section>
     </div>
