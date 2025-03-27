@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Home from "./pages/Home"; // Adjust this if the path is different
-import "./index.css"; // Import global styles if needed
+import Home from "./pages/Home"; 
+import "./index.css"; 
+import reportWebVitals from './reportWebVitals';
+
 
 ReactDOM.render(
   <React.StrictMode>
