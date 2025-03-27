@@ -1,126 +1,167 @@
-
 body {
-    background-color: #121212;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  .App-header {
-    background-color: #1e1e1e;
-    color: #4caf50;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    padding: 15px 0;
-    border-bottom: 3px solid #4caf50;
-    letter-spacing: 1px;
-  }
-  
+.App-header {
+  background-color: #1e1e1e;
+  color: #4caf50;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+  border-bottom: 3px solid #4caf50;
+  letter-spacing: 1px;
+}
 
-  .App {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+.App {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .post {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-    margin: 15px 0;
-    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .post:hover {
-    transform: scale(1.02);
-  }
-  
+.hero-section {
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  padding: 50px 20px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
 
-  .tenantName {
-    font-size: 20px;
-    font-weight: bold;
-    color: #4caf50;
-    margin-bottom: 5px;
-  }
-  
-  .tenantEmail {
-    font-size: 16px;
-    color: #b0b0b0;
-  }
-  
-  .rentAmount,
-  .leaseStartDate,
-  .leaseEndDate {
-    font-size: 16px;
-    color: #cccccc;
-    margin: 5px 0;
-  }
-  
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
 
-  .notifyButton {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 12px 15px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease-in-out, transform 0.1s;
-  }
-  
-  .notifyButton:hover {
-    background-color: #3c8d3b;
-  }
-  
-  .notifyButton:active {
-    transform: scale(0.98);
-  }
-  
-
-  .clearButton {
-    background-color: #ff4c4c;
-    color: white;
-    border: none;
-    padding: 12px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .clearButton:hover {
-    background-color: #cc0000;
-  }
-  
-
-  @media (max-width: 600px) {
-    .post {
-      width: 95%;
-    }
-  
-    .notifyButton,
-    .clearButton {
-      width: 100%;
-    }
-  }
-  
+.hero-section p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
 
 .homepageImage {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.homepageImage:hover {
+  transform: scale(1.05);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.post {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  margin: 15px 0;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.post:hover {
+  transform: scale(1.02);
+}
+
+.tenantName {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 5px;
+}
+
+.tenantEmail {
+  font-size: 16px;
+  color: #b0b0b0;
+}
+
+.rentAmount,
+.leaseStartDate,
+.leaseEndDate {
+  font-size: 16px;
+  color: #cccccc;
+  margin: 5px 0;
+}
+
+.predictionTag {
+  padding: 5px;
+  margin: 10px 0;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.expiringTag {
+  padding: 5px;
+  margin: 10px 0;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background-color: red;
+  border-radius: 5px;
+}
+
+.notifyButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out, transform 0.1s;
+}
+
+.notifyButton:hover {
+  background-color: #3c8d3b;
+}
+
+.notifyButton:active {
+  transform: scale(0.98);
+}
+
+.clearButton {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.clearButton:hover {
+  background-color: #cc0000;
+}
+
+@media (max-width: 600px) {
+  .post {
+    width: 95%;
   }
-  
+
+  .notifyButton,
+  .clearButton {
+    width: 100%;
+  }
+}
