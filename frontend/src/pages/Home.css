@@ -170,7 +170,6 @@ h2 {
 
 /* Parallax Effect for the Background Image */
 .parallax {
-  background-image: url('your-image-url-here.jpg');
   height: 80vh;
   background-attachment: fixed;
   background-position: center;
