@@ -88,7 +88,7 @@ h2 {
 .tenantName {
   font-size: 20px;
   font-weight: bold;
-  color: #4caf50;
+  color: #000; /* Changed text color to black */
   margin-bottom: 5px;
 }
 
@@ -101,7 +101,7 @@ h2 {
 .leaseStartDate,
 .leaseEndDate {
   font-size: 16px;
-  color: #cccccc;
+  color: #000; /* Changed text color to black */
   margin: 5px 0;
 }
 
@@ -152,7 +152,7 @@ h2 {
 }
 
 .accordion-button {
-  background-color: #4caf50;
+  background-color: black; /* Changed accordion color to black */
   color: white;
   padding: 10px;
   width: 100%;
@@ -165,7 +165,7 @@ h2 {
 }
 
 .accordion-button:hover {
-  background-color: #45a049;
+  background-color: #333;
 }
 
 .accordion-content {
@@ -174,10 +174,16 @@ h2 {
   display: none;
   font-size: 16px;
   color: #555;
+  transition: max-height 0.5s ease-in-out;
 }
 
 .accordion-button:active + .accordion-content {
   display: block;
+}
+
+.accordion-content.open {
+  max-height: 500px; /* Allow content to expand */
+  transition: max-height 1s ease-out; /* Make it last for a second before collapsing */
 }
 
 /* Partners Section */

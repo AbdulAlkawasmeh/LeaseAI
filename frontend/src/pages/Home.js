@@ -6,6 +6,7 @@ import "./Home.css";
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
+  const [activeAccordion, setActiveAccordion] = useState(null);
 
   useEffect(() => {
     axios
@@ -20,19 +21,22 @@ function Home() {
   }, []);
 
   const isExpiringSoon = (leaseEndDate) => {
-    const daysLeft = moment(leaseEndDate).diff(moment(), 'days');
+    const daysLeft = moment(leaseEndDate).diff(moment(), "days");
     return daysLeft <= 60;
   };
 
   const sendNotification = async (post) => {
     try {
-      const response = await axios.post("https://leaseai-backend-production.up.railway.app/send-notification", {
-        tenantEmail: post.tenantEmail,
-        tenantName: post.tenantName,
-        rentAmount: post.rentAmount,
-        leaseStartDate: post.leaseStartDate,
-        leaseEndDate: post.leaseEndDate,
-      });
+      const response = await axios.post(
+        "https://leaseai-backend-production.up.railway.app/send-notification",
+        {
+          tenantEmail: post.tenantEmail,
+          tenantName: post.tenantName,
+          rentAmount: post.rentAmount,
+          leaseStartDate: post.leaseStartDate,
+          leaseEndDate: post.leaseEndDate,
+        }
+      );
 
       alert("Notification sent successfully!");
       console.log(response.data);
@@ -40,6 +44,10 @@ function Home() {
       console.error("Error sending notification:", error);
       alert("Failed to send notification.");
     }
+  };
+
+  const toggleAccordion = (index) => {
+    setActiveAccordion(activeAccordion === index ? null : index);
   };
 
   return (
@@ -72,11 +80,21 @@ function Home() {
               <div className="tenantName">Tenant: {post.tenantName}</div>
               <div className="tenantEmail">Email: {post.tenantEmail}</div>
               <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
-              <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
-              <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
+              <div className="leaseStartDate">
+                Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}
+              </div>
+              <div className="leaseEndDate">
+                Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}
+              </div>
 
               {post.prediction ? (
-                <div className="predictionTag" style={{ backgroundColor: post.prediction === "Likely to Renew" ? "yellow" : "gray" }}>
+                <div
+                  className="predictionTag"
+                  style={{
+                    backgroundColor:
+                      post.prediction === "Likely to Renew" ? "yellow" : "gray",
+                  }}
+                >
                   {post.prediction}
                 </div>
               ) : (
@@ -86,7 +104,9 @@ function Home() {
               )}
 
               {isExpiringSoon(post.leaseEndDate) && (
-                <div className="expiringTag" style={{ backgroundColor: "red" }}>Expiring soon</div>
+                <div className="expiringTag" style={{ backgroundColor: "red" }}>
+                  Expiring soon
+                </div>
               )}
 
               <button className="notifyButton" onClick={() => sendNotification(post)}>
@@ -102,29 +122,59 @@ function Home() {
         <h2>Frequently Asked Questions</h2>
         <div className="accordion">
           <div className="accordion-item">
-            <button className="accordion-button">
+            <button
+              className="accordion-button"
+              onClick={() => toggleAccordion(1)}
+            >
               What is AI Leasing?
             </button>
-            <div className="accordion-content">
-              <p>AI Leasing is the use of artificial intelligence to automate and optimize lease management and decisions.</p>
+            <div
+              className={`accordion-content ${
+                activeAccordion === 1 ? "open" : ""
+              }`}
+            >
+              <p>
+                AI Leasing is the use of artificial intelligence to automate and
+                optimize lease management and decisions.
+              </p>
             </div>
           </div>
 
           <div className="accordion-item">
-            <button className="accordion-button">
+            <button
+              className="accordion-button"
+              onClick={() => toggleAccordion(2)}
+            >
               How can I use this platform?
             </button>
-            <div className="accordion-content">
-              <p>You can manage lease data, get renewal predictions, and send notifications to tenants through our platform.</p>
+            <div
+              className={`accordion-content ${
+                activeAccordion === 2 ? "open" : ""
+              }`}
+            >
+              <p>
+                You can manage lease data, get renewal predictions, and send
+                notifications to tenants through our platform.
+              </p>
             </div>
           </div>
 
           <div className="accordion-item">
-            <button className="accordion-button">
+            <button
+              className="accordion-button"
+              onClick={() => toggleAccordion(3)}
+            >
               Is this platform secure?
             </button>
-            <div className="accordion-content">
-              <p>Yes, we ensure that all data is stored securely with encryption and only authorized users have access.</p>
+            <div
+              className={`accordion-content ${
+                activeAccordion === 3 ? "open" : ""
+              }`}
+            >
+              <p>
+                Yes, we ensure that all data is stored securely with encryption
+                and only authorized users have access.
+              </p>
             </div>
           </div>
         </div>
@@ -140,7 +190,10 @@ function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <img src="https://via.placeholder.com/150x100?text=Partner+1" alt="Partner 1" />
+            <img
+              src="https://via.placeholder.com/150x100?text=Partner+1"
+              alt="Partner 1"
+            />
           </motion.div>
           <motion.div
             className="partner"
@@ -148,7 +201,10 @@ function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5 }}
           >
-            <img src="https://via.placeholder.com/150x100?text=Partner+2" alt="Partner 2" />
+            <img
+              src="https://via.placeholder.com/150x100?text=Partner+2"
+              alt="Partner 2"
+            />
           </motion.div>
           <motion.div
             className="partner"
@@ -156,7 +212,10 @@ function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 2 }}
           >
-            <img src="https://via.placeholder.com/150x100?text=Partner+3" alt="Partner 3" />
+            <img
+              src="https://via.placeholder.com/150x100?text=Partner+3"
+              alt="Partner 3"
+            />
           </motion.div>
         </div>
       </section>
