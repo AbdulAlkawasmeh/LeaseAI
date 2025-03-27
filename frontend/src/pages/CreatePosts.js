@@ -86,36 +86,38 @@ function CreatePost() {
       </section>
 
       {/* Lease Data Form */}
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form className="formContainer">
-          <h2>Enter Lease Data</h2>
-          <label>Tenant Name:</label>
-          <ErrorMessage name="tenantName" component="span" />
-          <Field autoComplete="off" name="tenantName" placeholder="Enter Tenant Name" />
+      <section className="formSection">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form className="formContainer">
+            <h2>Enter Lease Data</h2>
+            <label>Tenant Name:</label>
+            <ErrorMessage name="tenantName" component="span" />
+            <Field autoComplete="off" name="tenantName" placeholder="Enter Tenant Name" />
 
-          <label>Tenant Email:</label>
-          <ErrorMessage name="tenantEmail" component="span" />
-          <Field autoComplete="off" type="email" name="tenantEmail" placeholder="Enter Tenant Email" />
+            <label>Tenant Email:</label>
+            <ErrorMessage name="tenantEmail" component="span" />
+            <Field autoComplete="off" type="email" name="tenantEmail" placeholder="Enter Tenant Email" />
 
-          <label>Rent Amount:</label>
-          <ErrorMessage name="rentAmount" component="span" />
-          <Field autoComplete="off" type="number" name="rentAmount" placeholder="Enter Rent Amount" />
+            <label>Rent Amount:</label>
+            <ErrorMessage name="rentAmount" component="span" />
+            <Field autoComplete="off" type="number" name="rentAmount" placeholder="Enter Rent Amount" />
 
-          <label>Lease Start Date:</label>
-          <ErrorMessage name="leaseStartDate" component="span" />
-          <Field type="date" name="leaseStartDate" />
+            <label>Lease Start Date:</label>
+            <ErrorMessage name="leaseStartDate" component="span" />
+            <Field type="date" name="leaseStartDate" />
 
-          <label>Lease End Date:</label>
-          <ErrorMessage name="leaseEndDate" component="span" />
-          <Field type="date" name="leaseEndDate" />
+            <label>Lease End Date:</label>
+            <ErrorMessage name="leaseEndDate" component="span" />
+            <Field type="date" name="leaseEndDate" />
 
-          <button type="submit">Submit Tenant Info</button>
-        </Form>
-      </Formik>
+            <button type="submit">Submit Tenant Info</button>
+          </Form>
+        </Formik>
+      </section>
 
       {/* Lease Data Display */}
       <section className="posts-section">
