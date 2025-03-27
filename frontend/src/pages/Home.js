@@ -33,13 +33,13 @@ function Home() {
       {/* About Us Section */}
       <section className="about-us">
         <h2 className="section-title">About Us</h2>
-        <p>
+        <p className="section-text">
           Lease AI is an innovative platform designed to simplify lease management. 
           We use AI to track lease expirations, predict renewal probabilities, and automate 
           tenant communication, helping landlords manage their properties effortlessly.
         </p>
         <motion.img
-          src="https://static.vecteezy.com/system/resources/previews/036/290/329/non_2x/about-us-metaphor-company-information-flat-illustration-template-business-profile-office-information-customer-support-our-team-about-company-vector.jpg"
+          src="https://via.placeholder.com/800x400?text=About+Us+Image"
           alt="About Us"
           className="section-image"
           initial={{ opacity: 0 }}
