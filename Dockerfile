@@ -1,23 +1,20 @@
-# Use Node.js as the base image
+# Use the official Node.js image as the base image
 FROM node:16
 
-# Set the working directory in the container to the 'frontend' folder
-WORKDIR /frontend
+# Set the working directory to /app
+WORKDIR /app
 
-# Copy package.json and package-lock.json first to install dependencies
-COPY frontend/package*.json /frontend/
+# Copy the entire project to the /app folder in the container
+COPY . /app/
 
-# Install dependencies
-RUN npm install
+# Ensure that frontend folder is correctly accessed
+WORKDIR /app/frontend
 
-# Copy the rest of the app's source code
-COPY frontend /frontend/
-
-# Build the React app
-RUN npm run build
+# Install dependencies and build the frontend
+RUN npm install && npm run build
 
 # Expose port 3000 for the React app
 EXPOSE 3000
 
-# Start the React app
+# Set the command to run the React app
 CMD ["npm", "start"]
