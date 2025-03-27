@@ -9,15 +9,15 @@ function App() {
     <Router>
       <div className="App">
         <nav className="navbar">
-          <NavLink to="/createpost" className="nav-link" activeclassname="active">
-            Create a Post
+          <NavLink to="/createpost" className="nav-link" activeClassName="active">
+          Create a Post
           </NavLink>
-          <NavLink to="/" className="nav-link" activeclassname="active">
-            Homepage
+          <NavLink to="/" className="nav-link" activeClassName="active">
+          Homepage
           </NavLink>
-          <NavLink to="/tenant" className="nav-link" activeclassname="active">
-            Tenant Page
-          </NavLink> 
+          <NavLink to="/tenant" className="nav-link" activeClassName="active">
+          Tenant Page
+          </NavLink>
         </nav>
 
         <Routes>
