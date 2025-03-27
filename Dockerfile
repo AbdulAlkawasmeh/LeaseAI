@@ -1,27 +1,24 @@
-# Use the official Node.js image as the base image
+# Use the official node image as a base
 FROM node:16
 
-# Set the working directory to /app
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json separately to optimize caching of dependencies
-COPY frontend/package*.json ./frontend/
-
-# Install dependencies in the frontend directory
-WORKDIR /app/frontend
+# Step 1: Install backend dependencies (if any)
+WORKDIR /app/backend
+COPY backend/package.json backend/package-lock.json ./
 RUN npm install
+COPY backend ./
 
-# Copy the rest of the project to /app/frontend (including all other files)
-COPY . /app/
-
-# Build the React app
+# Step 2: Build the frontend
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+COPY frontend ./
 RUN npm run build
 
-# Install `serve` to serve the static files in production
-RUN npm install -g serve
-
-# Expose port 3000 for the React app
+# Expose the frontend port (3000 for React)
 EXPOSE 3000
 
-# Command to serve the build folder with `serve` (production)
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Start the application (You may want to adjust this based on how your backend works)
+CMD ["npm", "run", "start"]
