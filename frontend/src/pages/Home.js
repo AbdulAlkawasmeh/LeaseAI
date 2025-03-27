@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import moment from "moment";
-import "./Home.css"; 
+import "./Home.css";
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://leaseai-backend-production.up.railway.app/posts") 
+      .get("https://leaseai-backend-production.up.railway.app/posts")
       .then((response) => {
-        console.log("Fetched Posts:", response.data); 
+        console.log("Fetched Posts:", response.data);
         setListOfPosts(response.data);
       })
       .catch((error) => {
@@ -44,50 +44,61 @@ function Home() {
 
   return (
     <div className="App">
-      <header className="App-header">Brikli AI</header>
+      {/* Hero Section */}
+      <header className="hero-section">
+        <motion.img
+          src="https://media.istockphoto.com/id/1295925635/photo/hong-kong-central-district-skyscrapers.jpg?s=612x612&w=0&k=20&c=SdWN-k-hajMSr9YEsf6_TEc0rXKc0XIjpdA7llQCjNs="
+          alt="Skyscraper"
+          className="hero-image"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        />
+        <div className="hero-text">
+          <h1>Lease AI - Revolutionizing Lease Management</h1>
+          <p>Automate and optimize your lease management with our AI-powered platform.</p>
+          <button className="cta-button">Get Started</button>
+        </div>
+      </header>
 
-      <motion.img
-        src="https://media.istockphoto.com/id/1295925635/photo/hong-kong-central-district-skyscrapers.jpg?s=612x612&w=0&k=20&c=SdWN-k-hajMSr9YEsf6_TEc0rXKc0XIjpdA7llQCjNs="
-        alt="City Skyline"
-        className="homepageImage"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-      />
+      {/* Posts Section */}
+      <section className="posts-section">
+        <h2>Lease Data</h2>
+        {listOfPosts.length === 0 ? (
+          <p>No lease data available.</p>
+        ) : (
+          listOfPosts.map((post) => (
+            <div className="post" key={post.id}>
+              <div className="tenantName">Tenant: {post.tenantName}</div>
+              <div className="tenantEmail">Email: {post.tenantEmail}</div>
+              <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
+              <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
+              <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
 
-      {listOfPosts.length === 0 ? (
-        <p>No lease data available.</p>
-      ) : (
-        listOfPosts.map((post) => (
-          <div className="post" key={post.id}>
-            <div className="tenantName">Tenant: {post.tenantName}</div>
-            <div className="tenantEmail">Email: {post.tenantEmail}</div>
-            <div className="rentAmount">Rent Amount: ${post.rentAmount}</div>
-            <div className="leaseStartDate">Lease Start: {moment(post.leaseStartDate).format("MM/DD/YYYY")}</div>
-            <div className="leaseEndDate">Lease End: {moment(post.leaseEndDate).format("MM/DD/YYYY")}</div>
+              {post.prediction ? (
+                <div className="predictionTag" style={{ backgroundColor: post.prediction === "Likely to Renew" ? "yellow" : "gray" }}>
+                  {post.prediction}
+                </div>
+              ) : (
+                <div className="predictionTag" style={{ backgroundColor: "lightgray" }}>
+                  No Prediction
+                </div>
+              )}
 
-            {post.prediction ? (
-              <div className="predictionTag" style={{ backgroundColor: post.prediction === "Likely to Renew" ? "yellow" : "gray" }}>
-                {post.prediction}
-              </div>
-            ) : (
-              <div className="predictionTag" style={{ backgroundColor: "lightgray" }}>
-                No Prediction
-              </div>
-            )}
+              {isExpiringSoon(post.leaseEndDate) && (
+                <div className="expiringTag" style={{ backgroundColor: "red" }}>Expiring soon</div>
+              )}
 
-            {isExpiringSoon(post.leaseEndDate) && (
-              <div className="expiringTag" style={{ backgroundColor: "red" }}>Expiring soon</div>
-            )}
+              <button className="notifyButton" onClick={() => sendNotification(post)}>
+                Notify
+              </button>
+            </div>
+          ))
+        )}
+      </section>
 
-            <button className="notifyButton" onClick={() => sendNotification(post)}>
-              Notify
-            </button>
-          </div>
-        ))
-      )}
-
-      <div className="faq-section">
+      {/* FAQ Section */}
+      <section className="faq-section">
         <h2>Frequently Asked Questions</h2>
         <div className="accordion">
           <div className="accordion-item">
@@ -117,9 +128,10 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="partners-section">
+      {/* Partners Section */}
+      <section className="partners-section">
         <h2>Our Partners</h2>
         <div className="partners-slider">
           <motion.div
@@ -147,7 +159,7 @@ function Home() {
             <img src="https://via.placeholder.com/150x100?text=Partner+3" alt="Partner 3" />
           </motion.div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
