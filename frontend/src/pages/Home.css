@@ -63,82 +63,80 @@ h2 {
   background-color: #45a049;
 }
 
-/* Posts Section */
-.posts-section {
-  padding: 40px;
+/* About Us & How It Works */
+.about-us, .how-it-works {
+  padding: 50px 0;
   text-align: center;
   background-color: #f9f9f9;
 }
 
-.post {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.post:hover {
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.tenantName {
-  font-size: 20px;
+.section-title {
+  font-size: 36px;
   font-weight: bold;
-  color: #000; /* Changed text color to black */
-  margin-bottom: 5px;
+  color: #222;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
 }
 
-.tenantEmail {
+.section-title span {
+  color: #4caf50;
+}
+
+.about-us p,
+.how-it-works ul {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us p {
+  margin-bottom: 40px;
+}
+
+/* Visual Enhancements for How It Works Steps */
+.steps-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.step-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.step-icon {
+  font-size: 40px;
+  color: #4caf50;
+  margin-bottom: 15px;
+}
+
+.step-box h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.step-box p {
   font-size: 16px;
-  color: #b0b0b0;
-}
-
-.rentAmount,
-.leaseStartDate,
-.leaseEndDate {
-  font-size: 16px;
-  color: #000; /* Changed text color to black */
-  margin: 5px 0;
-}
-
-.notifyButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 12px 15px;
-  margin-top: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease-in-out, transform 0.1s;
-}
-
-.notifyButton:hover {
-  background-color: #3c8d3b;
-}
-
-.notifyButton:active {
-  transform: scale(0.98);
-}
-
-.expiringTag {
-  background-color: red;
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.predictionTag {
-  background-color: yellow;
-  color: black;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 14px;
+  color: #666;
 }
 
 /* FAQ Section */
@@ -152,7 +150,7 @@ h2 {
 }
 
 .accordion-button {
-  background-color: black; /* Changed accordion color to black */
+  background-color: #333;
   color: white;
   padding: 10px;
   width: 100%;
@@ -165,7 +163,7 @@ h2 {
 }
 
 .accordion-button:hover {
-  background-color: #333;
+  background-color: #222;
 }
 
 .accordion-content {
@@ -182,8 +180,8 @@ h2 {
 }
 
 .accordion-content.open {
-  max-height: 500px; /* Allow content to expand */
-  transition: max-height 1s ease-out; /* Make it last for a second before collapsing */
+  max-height: 500px;
+  transition: max-height 1s ease-out;
 }
 
 /* Partners Section */
@@ -256,90 +254,4 @@ h2 {
 .homePage {
   background-color: #f8f9fa;
   padding: 40px 0;
-}
-
-/* HERO SECTION */
-.hero-section {
-  color: #fff;
-  text-align: center;
-  padding: 80px 0;
-}
-
-.hero-section h1 {
-  font-size: 42px;
-  font-weight: bold;
-}
-
-.hero-section p {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-.hero-btn {
-  background-color: #ff6600;
-  border: none;
-  padding: 12px 24px;
-  font-size: 18px;
-  border-radius: 6px;
-  transition: 0.3s;
-}
-
-.hero-btn:hover {
-  background-color: #e65c00;
-}
-
-/* About Us & How It Works */
-.about-us, .how-it-works {
-  padding: 50px 0;
-  text-align: center;
-}
-
-.section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #222;
-  text-transform: uppercase;
-}
-
-.section-title span {
-  color: #ff6600;
-}
-
-.stats-row, .steps-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.stats-box, .step-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.stats-icon, .step-icon {
-  font-size: 40px;
-  color: #ff6600;
-  margin-bottom: 10px;
-}
-
-.partner-logos img {
-  width: 150px;
-  margin: 10px;
-}
-
-
-.faq {
-  padding: 50px 0;
-}
-
-.accordion-button {
-  font-weight: bold;
-}
-
-.accordion-body {
-  font-size: 16px;
 }
