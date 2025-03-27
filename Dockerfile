@@ -4,17 +4,24 @@ FROM node:16
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the entire project to the /app folder in the container
+# Copy package.json and package-lock.json separately to optimize caching of dependencies
+COPY frontend/package*.json ./frontend/
+
+# Install dependencies in the frontend directory
+WORKDIR /app/frontend
+RUN npm install
+
+# Copy the rest of the project to /app/frontend (including all other files)
 COPY . /app/
 
-# Ensure that frontend folder is correctly accessed
-WORKDIR /app/frontend
+# Build the React app
+RUN npm run build
 
-# Install dependencies and build the frontend
-RUN npm install && npm run build
+# Install `serve` to serve the static files in production
+RUN npm install -g serve
 
 # Expose port 3000 for the React app
 EXPOSE 3000
 
-# Set the command to run the React app
-CMD ["npm", "start"]
+# Command to serve the build folder with `serve` (production)
+CMD ["serve", "-s", "build", "-l", "3000"]
