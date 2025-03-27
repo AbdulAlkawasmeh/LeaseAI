@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'; 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';  // Import Router
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import Home from "./pages/Home"; 
 import CreatePosts from "./pages/CreatePosts";  // Import CreatePosts page
 import TenantPage from "./pages/TenantPage";  // Import TenantPage
 import "./index.css"; 
-import reportWebVitals from './reportWebVitals';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,4 +21,3 @@ root.render(
   </React.StrictMode>
 );
 
-reportWebVitals();
