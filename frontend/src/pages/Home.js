@@ -1,108 +1,93 @@
-import React from "react";
-import { Container, Row, Col, Button, Accordion, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FaDatabase, FaCheckCircle, FaEnvelope, FaUsers, FaBuilding, FaMapMarkerAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
+  const navigate = useNavigate();
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
-    <div className="homePage">
-      {/* HERO SECTION */}
-      <section className="hero-section">
-        <Container className="text-center">
-          <h1>AI-Powered Lease Management</h1>
-          <p>Track, automate, and simplify lease management with ease.</p>
-          <Link to="/create-posts">
-            <Button className="hero-btn">Get Started</Button>
-          </Link>
-        </Container>
-      </section>
+    <div className="home-container">
+      {/* Hero Section */}
+      <header className="hero-section">
+        <motion.img
+          src="https://media.istockphoto.com/id/1295925635/photo/hong-kong-central-district-skyscrapers.jpg?s=612x612&w=0&k=20&c=SdWN-k-hajMSr9YEsf6_TEc0rXKc0XIjpdA7llQCjNs="
+          alt="Skyscraper"
+          className="hero-image"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        />
+        <div className="hero-text">
+          <h1>Lease AI - Revolutionizing Lease Management</h1>
+          <p>Automate and optimize your lease management with our AI-powered platform.</p>
+          <button className="cta-button" onClick={() => navigate("/createpost")}>Get Started</button>
+        </div>
+      </header>
 
-      {/* ABOUT US SECTION */}
+      {/* About Us Section */}
       <section className="about-us">
-        <Container>
-          <Row className="text-center">
-            <Col>
-              <h2 className="section-title">ABOUT <span>OUR COMPANY</span></h2>
-              <p className="section-subtitle">
-                We make lease management effortless with AI automation, helping landlords track leases, send reminders, and reduce vacancies.
-              </p>
-            </Col>
-          </Row>
-          <Row className="stats-row">
-            <Col md={3} className="stats-box"><FaUsers className="stats-icon" /><h3>200+</h3><p>Landlords Using LeaseAI</p></Col>
-            <Col md={3} className="stats-box"><FaBuilding className="stats-icon" /><h3>160+</h3><p>Managed Properties</p></Col>
-            <Col md={3} className="stats-box"><FaMapMarkerAlt className="stats-icon" /><h3>25+</h3><p>Cities Covered</p></Col>
-            <Col md={3} className="stats-box"><FaUsers className="stats-icon" /><h3>1000+</h3><p>Leases Tracked</p></Col>
-          </Row>
-        </Container>
+        <h2>About Us</h2>
+        <p>
+          Lease AI is an innovative platform designed to simplify lease management. 
+          We use AI to track lease expirations, predict renewal probabilities, and automate 
+          tenant communication, helping landlords manage their properties effortlessly.
+        </p>
       </section>
 
-      {/* HOW IT WORKS SECTION */}
+      {/* How It Works Section */}
       <section className="how-it-works">
-        <Container>
-          <Row className="text-center">
-            <Col>
-              <h2 className="section-title">HOW <span>IT WORKS</span></h2>
-              <p className="section-subtitle">A seamless process for managing leases efficiently.</p>
-            </Col>
-          </Row>
-          <Row className="steps-row">
-            <Col md={4} className="step-box"><FaCheckCircle className="step-icon" /><h4>1. Landlord Inputs Data</h4><p>Add tenant details, lease terms, and rent amounts.</p></Col>
-            <Col md={4} className="step-box"><FaDatabase className="step-icon" /><h4>2. Data Stored Securely</h4><p>All lease data is stored in a secure database.</p></Col>
-            <Col md={4} className="step-box"><FaEnvelope className="step-icon" /><h4>3. Email Reminders Sent</h4><p>Expiring leases trigger automated email notifications.</p></Col>
-          </Row>
-        </Container>
+        <h2>How It Works</h2>
+        <ul>
+          <li><strong>Landlord Inputs Data:</strong> Add tenant details, lease terms, and rent amounts.</li>
+          <li><strong>Data Stored Securely:</strong> All lease data is stored in a secure database.</li>
+          <li><strong>Status Tracking:</strong> Active leases are tracked in real-time.</li>
+          <li><strong>Expiring Lease Alerts:</strong> The system marks leases nearing expiration.</li>
+          <li><strong>Email Notifications:</strong> Landlords can send automated reminders to tenants.</li>
+        </ul>
       </section>
 
-      {/* PARTNER LOGOS */}
-      <section className="partners">
-        <Container className="text-center">
-          <h2 className="section-title">TRUSTED BY</h2>
-          <Row className="partner-logos">
-            <Col><img src="/assets/company1.png" alt="Company 1" /></Col>
-            <Col><img src="/assets/company2.png" alt="Company 2" /></Col>
-            <Col><img src="/assets/company3.png" alt="Company 3" /></Col>
-            <Col><img src="/assets/company4.png" alt="Company 4" /></Col>
-          </Row>
-        </Container>
+      {/* FAQ Section */}
+      <section className="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div className="accordion">
+          {[
+            { question: "What is AI Leasing?", answer: "AI Leasing automates lease tracking, reminders, and predictions using artificial intelligence." },
+            { question: "How can I use this platform?", answer: "You can add tenant details, track lease statuses, and send automated notifications to tenants." },
+            { question: "Is this platform secure?", answer: "Yes, we use encryption and strict access controls to protect user data." },
+          ].map((item, index) => (
+            <div key={index} className="accordion-item">
+              <button className="accordion-button" onClick={() => toggleAccordion(index)}>
+                {item.question}
+              </button>
+              <div className={`accordion-content ${openIndex === index ? "open" : ""}`}>
+                <p>{item.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* FAQ SECTION WITH ACCORDION */}
-      <section className="faq">
-        <Container>
-          <Row className="text-center">
-            <Col>
-              <h2 className="section-title">FREQUENTLY ASKED QUESTIONS</h2>
-            </Col>
-          </Row>
-          <Accordion defaultActiveKey="0">
-            <Card>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>How does LeaseAI help landlords?</Accordion.Header>
-                <Accordion.Body>
-                  LeaseAI automates lease tracking, alerts landlords of expiring leases, and sends email reminders to tenants.
-                </Accordion.Body>
-              </Accordion.Item>
-            </Card>
-            <Card>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Is my data secure?</Accordion.Header>
-                <Accordion.Body>
-                  Yes, we use industry-standard encryption to store and protect lease data.
-                </Accordion.Body>
-              </Accordion.Item>
-            </Card>
-            <Card>
-              <Accordion.Item eventKey="2">
-                <Accordion.Header>How can I get started?</Accordion.Header>
-                <Accordion.Body>
-                  Simply click on "Get Started" and add your first lease entry in minutes!
-                </Accordion.Body>
-              </Accordion.Item>
-            </Card>
-          </Accordion>
-        </Container>
+      {/* Partners Section */}
+      <section className="partners-section">
+        <h2>Our Partners</h2>
+        <div className="partners-slider">
+          {[
+            { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+            { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+            { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
+            { name: "Tesla", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" },
+          ].map((partner, index) => (
+            <motion.div key={index} className="partner" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 + index * 0.5 }}>
+              <img src={partner.logo} alt={partner.name} />
+            </motion.div>
+          ))}
+        </div>
       </section>
     </div>
   );
