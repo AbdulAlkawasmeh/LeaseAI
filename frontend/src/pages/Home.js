@@ -32,24 +32,57 @@ function Home() {
 
       {/* About Us Section */}
       <section className="about-us">
-        <h2>About Us</h2>
+        <h2 className="section-title">About Us</h2>
         <p>
           Lease AI is an innovative platform designed to simplify lease management. 
           We use AI to track lease expirations, predict renewal probabilities, and automate 
           tenant communication, helping landlords manage their properties effortlessly.
         </p>
+        <motion.img
+          src="https://static.vecteezy.com/system/resources/previews/036/290/329/non_2x/about-us-metaphor-company-information-flat-illustration-template-business-profile-office-information-customer-support-our-team-about-company-vector.jpg"
+          alt="About Us"
+          className="section-image"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        />
       </section>
 
       {/* How It Works Section */}
       <section className="how-it-works">
-        <h2>How It Works</h2>
-        <ul>
-          <li><strong>Landlord Inputs Data:</strong> Add tenant details, lease terms, and rent amounts.</li>
-          <li><strong>Data Stored Securely:</strong> All lease data is stored in a secure database.</li>
-          <li><strong>Status Tracking:</strong> Active leases are tracked in real-time.</li>
-          <li><strong>Expiring Lease Alerts:</strong> The system marks leases nearing expiration.</li>
-          <li><strong>Email Notifications:</strong> Landlords can send automated reminders to tenants.</li>
-        </ul>
+        <h2 className="section-title">How It Works</h2>
+        <div className="steps-row">
+          <div className="step-box">
+            <h3>1. Landlord Inputs Data</h3>
+            <p>Add tenant details, lease terms, and rent amounts.</p>
+          </div>
+          <div className="step-box">
+            <h3>2. Data Stored Securely</h3>
+            <p>All lease data is stored in a secure database.</p>
+          </div>
+          <div className="step-box">
+            <h3>3. Status Tracking</h3>
+            <p>Active leases are tracked in real-time.</p>
+          </div>
+        </div>
+        <div className="steps-row">
+          <div className="step-box">
+            <h3>4. Expiring Lease Alerts</h3>
+            <p>The system marks leases nearing expiration.</p>
+          </div>
+          <div className="step-box">
+            <h3>5. Email Notifications</h3>
+            <p>Landlords can send automated reminders to tenants.</p>
+          </div>
+        </div>
+        <motion.img
+          src="https://img.freepik.com/premium-vector/how-it-works-flat-concept-vector-icon-ask-question-idea-cartoon-color-illustrations-set-customer-support-service-online-helpdesk-faq-contact-us-tech-assistance-isolated-graphic-design-element_106317-13303.jpg?semt=ais_hybrid"
+          alt="How It Works"
+          className="section-image"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        />
       </section>
 
       {/* FAQ Section */}

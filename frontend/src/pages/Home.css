@@ -65,9 +65,11 @@ h2 {
 
 /* About Us & How It Works */
 .about-us, .how-it-works {
-  padding: 50px 0;
+  padding: 80px 20px;
   text-align: center;
   background-color: #f9f9f9;
+  position: relative;
+  overflow: hidden;
 }
 
 .section-title {
@@ -75,7 +77,7 @@ h2 {
   font-weight: bold;
   color: #222;
   text-transform: uppercase;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   letter-spacing: 2px;
 }
 
@@ -97,7 +99,24 @@ h2 {
   margin-bottom: 40px;
 }
 
-/* Visual Enhancements for How It Works Steps */
+/* Visual Enhancements for About Us with Image */
+.about-us .section-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.about-us:hover .section-image {
+  opacity: 1;
+}
+
+/* How It Works - Steps Section */
 .steps-row {
   display: flex;
   justify-content: center;
@@ -113,7 +132,17 @@ h2 {
   text-align: center;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   width: 200px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.step-box:nth-child(odd) {
+  animation-delay: 0.5s;
+}
+
+.step-box:nth-child(even) {
+  animation-delay: 1s;
 }
 
 .step-box:hover {
@@ -137,6 +166,26 @@ h2 {
 .step-box p {
   font-size: 16px;
   color: #666;
+}
+
+/* Parallax Effect for the Background Image */
+.parallax {
+  background-image: url('your-image-url-here.jpg');
+  height: 80vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  filter: brightness(50%);
+}
+
+/* Animation for fading in the elements */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* FAQ Section */
